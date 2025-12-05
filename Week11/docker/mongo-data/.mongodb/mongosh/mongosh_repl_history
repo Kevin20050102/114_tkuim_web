@@ -1,0 +1,8 @@
+exit
+docker inspect week11-mongo | grep MONGO
+exit
+show collections
+db.participants.createIndex({ email: 1 }, { unique: true })
+db.participants.find().pretty()
+use week11
+use admin
