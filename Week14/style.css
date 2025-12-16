@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+body {
+    background-color: #ece8e1;
+    color: #0f1923;
+}
+
+/* Header Styles */
+header {
+    background-color: #111;
+    color: white;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.left-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.logo svg, .vl-logo svg {
+    height: 30px;
+    width: 30px;
+    display: block;
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+nav a:hover {
+    background-color: #333;
+}
+
+.right-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.promo {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+.icon-btn {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.play-btn {
+    background: linear-gradient(135deg, #ff4655 0%, #ff4655 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* Main Content */
+.content-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.page-title {
+    margin-bottom: 2rem;
+}
+
+.page-title h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #0f1923;
+    text-transform: uppercase;
+}
+
+/* News Grid */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.news-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #333;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+}
+
+.news-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.card-info {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category {
+    color: #ff4655;
+    text-transform: uppercase;
+}
+
+.date {
+    color: #768079;
+}
+
+.separator {
+    color: #768079;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    color: #0f1923;
+}
+
+.card-desc {
+    font-size: 1rem;
+    color: #383e3a;
+    line-height: 1.5;
+}
+
+/* Corner decorations for images (Video game UI style) */
+.card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+    border-right: 2px solid rgba(255,255,255,0.5);
+    margin: 10px;
+}
+
+@media (max-width: 1024px) {
+    .news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-title h1 {
+        font-size: 3rem;
+    }
+    header {
+        padding: 0 1rem;
+    }
+    .left-nav nav, .promo {
+        display: none;
+    }
+}

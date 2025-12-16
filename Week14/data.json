@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt7f54c93547844621/675127e7d9b93557e1df2306/VARREL_Announcement_Banner_1920x1080.jpg?auto=webp&disable=upscale&height=504",
+    "category": "電競",
+    "date": "2025/12/12",
+    "title": "SLT Seongnam以VARREL之名參加2026賽季的報導",
+    "description": "SLT明年將以VL之名參賽，請點此了解詳情。"
+  },
+  {
+    "id": 2,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt6d281a179603f901/675127814cc31d17d52a2653/Full_Sense_Announcement_Banner_1920x1080.jpg?auto=webp&disable=upscale&height=504",
+    "category": "電競",
+    "date": "2025/12/8",
+    "title": "Riot Games歡迎 Full Sense 加入2026 VCT太平洋聯賽",
+    "description": "VCT太平洋聯賽合作隊伍更新"
+  },
+  {
+    "id": 3,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blta44154421b3c9594/674e2d36c25e8211f32a4f66/Val_Esports_Comms_2026_Format_Announce_Article_Banner_1920x1080.jpg?auto=webp&disable=upscale&height=504",
+    "category": "電競",
+    "date": "2025/12/3",
+    "title": "2026 VCT賽季開幕：資訊全覽",
+    "description": "來看看2026 VCT賽季開幕的詳情吧！"
+  },
+  {
+    "id": 4,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt29df14260f8d228c/672d6273418e244d2847a960/11.10_Patc_Notes_Banner.jpg?auto=webp&disable=upscale&height=504",
+    "category": "遊戲更新",
+    "date": "2025/11/11",
+    "title": "《特戰英豪》11.10版本更新公告",
+    "description": "哈珀重製千呼萬喚始出來！另外還有改善遊戲體驗，珂樂芙平衡調整，以及錯誤修正。"
+  },
+  {
+    "id": 5,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt00d02bd7779fdf91/67319c087994827010a30030/PickEms_Article_Banner.jpg?auto=webp&disable=upscale&height=504",
+    "category": "電競",
+    "date": "2025/11/11",
+    "title": "顛覆者冠軍賽：AWS贏家預測活動",
+    "description": "贏家預測活動將於11月13日在官網和用戶端同步開啟，敬請準備！"
+  },
+  {
+    "id": 6,
+    "image": "https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt6d5102f8373d42c3/672c3d527e02e8673f88ddaa/GC_Champs_Format_Article.jpg?auto=webp&disable=upscale&height=504",
+    "category": "電競",
+    "date": "2025/11/8",
+    "title": "2025顛覆者冠軍賽：賽制介紹",
+    "description": "全力衝刺，絕不減速。先熟悉規則、賽制與流程，才能專心欣賞比賽。"
+  }
+]
