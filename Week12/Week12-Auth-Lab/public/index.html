@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head><title>報名系統</title></head>
+<body>
+    <div id="auth-section">
+        <h2>登入</h2>
+        <input id="user" placeholder="帳號">
+        <input id="pass" type="password" placeholder="密碼">
+        <button onclick="login()">登入</button>
+        <button onclick="register('student')">註冊學生</button>
+        <button onclick="register('admin')">註冊管理員</button>
+    </div>
+
+    <div id="main-section" style="display:none">
+        <h2>歡迎, <span id="display-user"></span> (<span id="display-role"></span>)</h2>
+        <button onclick="logout()">登出</button>
+        <hr>
+        <h3>新增報名</h3>
+        <input id="reg-name" placeholder="姓名">
+        <input id="reg-email" placeholder="Email">
+        <button onclick="submitForm()">送出</button>
+        <hr>
+        <h3>資料列表</h3>
+        <ul id="list"></ul>
+    </div>
+
+    <script>
+        let TOKEN = '';
+        async function login() {
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: user.value, password: pass.value})
+            });
+            const data = await res.json();
+            if(data.token) {
+                TOKEN = data.token;
+                showUI(data);
+                fetchData();
+            } else alert(data.error);
+        }
+
+        async function register(role) {
+            await fetch('/auth/signup', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: user.value, password: pass.value, role})
+            });
+            alert('註冊成功，請登入');
+        }
+
+        function showUI(user) {
+            document.getElementById('auth-section').style.display = 'none';
+            document.getElementById('main-section').style.display = 'block';
+            document.getElementById('display-user').innerText = user.username;
+            document.getElementById('display-role').innerText = user.role;
+        }
+
+        async function fetchData() {
+            const res = await fetch('/api/signup', { headers: {'Authorization': `Bearer ${TOKEN}`} });
+            const items = await res.json();
+            list.innerHTML = items.map(i => `
+                <li>${i.name} (${i.email}) - 由 ${i.ownerName} 建立 
+                    <button onclick="deleteData('${i._id}')">刪除</button>
+                </li>
+            `).join('');
+        }
+
+        async function submitForm() {
+            await fetch('/api/signup', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}`},
+                body: JSON.stringify({name: document.getElementById('reg-name').value, email: document.getElementById('reg-email').value})
+            });
+            fetchData();
+        }
+
+        async function deleteData(id) {
+            const res = await fetch(`/api/signup/${id}`, {
+                method: 'DELETE',
+                headers: {'Authorization': `Bearer ${TOKEN}`}
+            });
+            if(res.ok) fetchData(); else alert('無權刪除');
+        }
+
+        function logout() { location.reload(); }
+    </script>
+</body>
+</html>
