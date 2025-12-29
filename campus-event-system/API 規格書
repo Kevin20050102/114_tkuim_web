@@ -1,0 +1,113 @@
+項目,內容
+專案名稱,Campus Event Management System
+API 版本,v1.0.0
+文件維護者,[何厚璿]
+最後更新日期,2025-12-29
+Base URL,http://localhost:5001/api
+通訊協定,HTTP / JSON
+
+1. 概觀 (Overview)
+本文件定義校園活動管理系統的後端介面。前端應用程式可透過此介面進行活動資料的查詢、新增與刪除。
+
+1.1 伺服器環境
+開發環境 (Development): http://localhost:5001/api
+
+生產環境 (Production): (尚未部署)
+
+1.2 認證與授權 (Authentication)
+目前版本採 公開存取 (Public) 模式，無需 Token 或 API Key 即可呼叫。
+
+跨來源資源共享 (CORS): 允許來自 http://localhost:5173 的請求。
+
+1.3 通用回應格式 (Response Format)
+所有 API 回應皆採用 JSON 格式。
+
+成功回應範例 (Success):
+
+JSON
+
+{
+  "success": true,
+  "data": { ... } // 或陣列 [...]
+}
+錯誤回應範例 (Error):
+
+JSON
+
+{
+  "success": false,
+  "error": "錯誤訊息描述"
+}
+
+2. 資料結構定義 (Data Schema)
+Event (活動物件)
+代表一場單獨的校園活動。
+欄位名稱,型態,必填,說明
+_id,String,Yes,MongoDB 自動生成的唯一識別碼 (ObjectId)
+title,String,Yes,活動標題
+date,Date String,Yes,活動日期 (格式: YYYY-MM-DD)
+location,String,Yes,舉辦地點
+organizer,String,Yes,主辦單位名稱
+description,String,No,活動詳細內容描述
+createdAt,Date String,No,資料建立時間 (ISO 8601)
+__v,Number,No,版本控制 (MongoDB 內部使用)
+
+3. API 資源詳情 (Resources)3.1 取得所有活動 (Get All Events)獲取系統中目前儲存的所有活動列表，預設依建立時間排序。Endpoint: /eventsMethod: GETQuery Parameters: 成功回應 (200 OK)JSON[
+  {
+    "_id": "6565c53b2a3f4c0012345678",
+    "title": "資管系期末烤肉",
+    "date": "2025-01-10",
+    "location": "學校操場",
+    "organizer": "資管系學會",
+    "description": "歡迎大家帶朋友一起來吃。",
+    "createdAt": "2024-12-29T12:00:00.000Z",
+    "__v": 0
+  },
+  {
+    "_id": "6565c53b2a3f4c0087654321",
+    "title": "吉他社成發",
+    "date": "2025-01-15",
+    "location": "活動中心",
+    "organizer": "吉他社",
+    "description": "",
+    "createdAt": "2024-12-29T12:05:00.000Z",
+    "__v": 0
+  }
+]
+3.2 新增活動 (Create Event)建立一筆新的活動資料。系統會驗證必填欄位。Endpoint: /eventsMethod: POSTContent-Type: application/json 請求參數 (Request Body)參數型態必填範例值titleStringYes"校園徵才博覽會"dateStringYes"2025-03-20"locationStringYes"體育館"organizerStringYes"學務處"descriptionStringNo"邀請百大企業進駐..." 成功回應 (201 Created)JSON{
+  "success": true,
+  "data": {
+    "title": "校園徵才博覽會",
+    "date": "2025-03-20",
+    "location": "體育館",
+    "organizer": "學務處",
+    "description": "邀請百大企業進駐...",
+    "_id": "6565c9992a3f4c0099887766",
+    "__v": 0
+  }
+}
+失敗回應 (400 Bad Request)原因：缺少必填欄位JSON{
+  "success": false,
+  "error": "Event validation failed: title: Path `title` is required."
+}
+3.3 刪除活動 (Delete Event)根據活動 ID 刪除指定的資料。Endpoint: /events/:idMethod: DELETEURL Params:id (String): 目標活動的 _id 成功回應 (200 OK)JSON{
+  "success": true,
+  "data": {}
+}
+失敗回應 (404 Not Found)原因：ID 格式正確但找不到資料JSON{
+  "success": false,
+  "error": "No event found"
+}
+失敗回應 (500 Internal Server Error)原因：ID 格式錯誤 (例如長度不對) 或資料庫連線問題JSON{
+  "success": false,
+  "error": "Cast to ObjectId failed for value..."
+}
+
+4. HTTP 狀態碼對照表 (Status Codes)
+本 API 使用標準 HTTP 狀態碼來表示請求結果。
+狀態碼,代碼含義,說明
+200,OK,請求成功 (用於查詢、刪除)。
+201,Created,資料建立成功 (用於新增)。
+400,Bad Request,請求參數有誤 (如缺欄位、格式錯誤)。
+404,Not Found,請求的資源 (ID) 不存在。
+500,Internal Error,伺服器內部錯誤 (資料庫連線失敗或程式例外)。

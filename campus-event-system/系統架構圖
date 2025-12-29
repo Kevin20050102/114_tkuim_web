@@ -1,0 +1,42 @@
+graph LR
+    subgraph Client_Side [前端客戶端 (Frontend)]
+        direction TB
+        Browser[瀏覽器 Browser]
+        React[React + Vite]
+        Tailwind[Tailwind CSS]
+        
+        Browser --> React
+        React --> Tailwind
+        note1[運行於 localhost:5173]
+    end
+
+    subgraph Server_Side [後端伺服器 (Backend)]
+        direction TB
+        Node[Node.js Runtime]
+        Express[Express Framework]
+        Router[API Routes]
+        
+        Node --> Express
+        Express --> Router
+        note2[運行於 localhost:5001]
+    end
+
+    subgraph Database_Side [資料庫 (Database)]
+        direction TB
+        MongoDB[(MongoDB Community)]
+        Data[校園活動資料]
+        
+        MongoDB --> Data
+        note3[運行於 localhost:27017]
+    end
+
+    %% 連線關係
+    React -- "1. HTTP Request (Axios)" --> Express
+    Express -- "2. JSON Response" --> React
+    
+    Router -- "3. Mongoose Query" --> MongoDB
+    MongoDB -- "4. Data Result" --> Router
+
+    style Client_Side fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style Server_Side fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style Database_Side fill:#fff3e0,stroke:#ef6c00,stroke-width:2px

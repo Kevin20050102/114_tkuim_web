@@ -1,0 +1,33 @@
+sequenceDiagram
+    autonumber
+    actor User as 使用者 (User)
+    participant FE as 前端 (React/Axios)
+    participant BE as 後端 (Express/Node)
+    participant DB as 資料庫 (MongoDB)
+
+    Note over User, FE: 動作：新增活動 (Create)
+
+    User->>FE: 1. 填寫表單並點擊「發布」
+    FE->>BE: 2. 發送 POST /api/events (帶有 JSON 資料)
+    
+    Note right of FE: 請求進入後端 Port 5001
+
+    BE->>BE: 3. 驗證資料格式 (Schema Check)
+    BE->>DB: 4. 呼叫 Event.create(data) 寫入資料
+    DB-->>BE: 5. 回傳寫入成功的物件 (包含 _id)
+    
+    BE-->>FE: 6. 回傳 HTTP 201 與完整資料
+    
+    Note left of FE: 請求回到前端
+
+    FE->>FE: 7. 更新 React State (setEvents)
+    FE-->>User: 8. 畫面自動刷新，顯示新卡片
+
+    流程說明：
+
+觸發：使用者在介面操作（例如新增或刪除）。
+發送：前端透過 Axios 將資料打包成 JSON，發送到後端 API（http://localhost:5001/api/events）。
+處理：後端接收到請求，透過 Mongoose 模型與資料庫溝通。
+存取：MongoDB 執行實際的寫入或刪除動作。
+回應：資料庫回傳結果給後端，後端再轉發給前端。
+更新：前端收到成功的回應後，透過 setEvents 更新畫面，讓使用者立刻看到結果。
